@@ -1,26 +1,31 @@
 import sys
 sys.stdin = open('input.txt')
 
-arr = [[0]*500 for _ in range(500)]
 K = int(input())
 data = []
 for _ in range(6):
-    D, L = map(int,input().split()) # 1 = 동, 2 = 서, 3 = 남, 4 = 북
+    D = list(map(int,input().split())) # 1 = 동, 2 = 서, 3 = 남, 4 = 북
     data.append(D)
-    data.append(L)
-print(data)
-start = 0
-for i in range(6):
-    if data[i*2] == 1 or 2:
-        if data[i*2+1] > start:
-            start = data[i*2+1]
+# print(data)
 
-for i in range(data[1]):
-    arr[i][0] = 1
-for i in range(data[3]):
-    arr[data[1]][i] = 1
-for i in range(data[1]-data[5], data[1]):
-    arr[i][data[3]] = 1
+maxw = 0
+maxh = 0
+minw = 500
+minh = 500
 
-for i in arr:
-    print(i)
+for i in range(len(data)):
+    if data[i][0] == 1 or data[i][0] == 2:
+        if data[i][1] > maxw:
+            maxw = data[i][1]
+        if data[i][1] < minw:
+            minw = data[i][1]
+for i in range(len(data)):
+    if data[i][0] == 3 or data[i][0] == 4:
+        if data[i][1] > maxh:
+            maxh = data[i][1]
+        if data[i][1] < minh:
+            minh = data[i][1]
+
+# print(maxw,maxh,minw,minh)
+X = (maxw * maxh) - (minw * minh)
+print(X*K)
