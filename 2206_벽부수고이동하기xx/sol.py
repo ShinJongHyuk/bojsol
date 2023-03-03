@@ -35,3 +35,4 @@ for i in range(N):
             arr[i][j] = 1
 
 print(max(result))
+
